@@ -135,25 +135,25 @@ function App() {
       .finally(() => setIsPageLoading(false));
   }
 
-  useEffect(() => {
-    Promise.all([api.getInitialCards(), api.getUserInfo()]);
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.error(`ошибка: ${err}`);
-      });
-    api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.error(`ошибка: ${err}`);
-      });
-  }, []);
+  // useEffect(() => {
+  //   Promise.all([api.getInitialCards(), api.getUserInfo()]);
+  //   api
+  //     .getUserInfo()
+  //     .then((data) => {
+  //       setCurrentUser(data);
+  //     })
+  //     .catch((err) => {
+  //       console.error(`ошибка: ${err}`);
+  //     });
+  //   api
+  //     .getInitialCards()
+  //     .then((cards) => {
+  //       setCards(cards);
+  //     })
+  //     .catch((err) => {
+  //       console.error(`ошибка: ${err}`);
+  //     });
+  // }, []);
 
   //Функция обновления данных пользователя
   function handleUpdateUser(data) {
@@ -223,11 +223,12 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         localStorage.setItem("jwt", data.token);
-        CheckToken();
+       // CheckToken();
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
+        setIsSuccessfulRegistration(false);
         handleInfoTooltip();
       });
   }
@@ -261,7 +262,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      Promise.all([api.getInitialCards(), api.getUserInfo()]);
+     // Promise.all([api.getInitialCards(), api.getUserInfo()]);
       api
         .getUserInfo()
         .then((data) => {

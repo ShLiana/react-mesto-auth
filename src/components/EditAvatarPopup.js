@@ -1,7 +1,7 @@
 import React from "react";
 import PopupWithForm from "../components/PopupWithForm";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isPageLoading }) {
   const ref = React.useRef();
 
   function handleSubmit(e) {
@@ -11,6 +11,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     });
   }
 
+  // Очищаем форму от предыдущей ссылки
+  React.useEffect(() => {
+    ref.current.value = "";
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       isOpen={isOpen}
@@ -19,6 +24,8 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       title={"Обновить аватар"}
       text={"Сохранить"}
       onSubmit={handleSubmit}
+      isPageLoading={isPageLoading}
+      renderLoadingText="Обновление..."
     >
       <input
         ref={ref}

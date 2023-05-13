@@ -8,8 +8,8 @@ const PopupWithForm = ({
   isOpen,
   onClose,
   onSubmit,
-  isRenderLoading,
-  renderLoadingTextBtn,
+  isPageLoading,
+  renderLoadingText,
 }) => {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
@@ -25,7 +25,7 @@ const PopupWithForm = ({
         <form className="popup__form" name={name} onSubmit={onSubmit}>
           {children}
           <button className="popup__save-button" type="submit">
-            {isRenderLoading ? renderLoadingTextBtn : text}
+            {isPageLoading ? renderLoadingText : text}
           </button>
         </form>
       </div>

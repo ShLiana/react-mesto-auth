@@ -37,6 +37,8 @@ function AddPlacePopup(props) {
       title={"Новое место"}
       text={"Создать"}
       onSubmit={handleSubmit}
+      isPageLoading={props.isPageLoading}
+      renderLoadingTextBtn="Добавление..."
     >
       <input
         className="popup__input popup__input_type_title"

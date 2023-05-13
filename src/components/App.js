@@ -31,19 +31,22 @@ function App() {
   //Переменные состояния карточек
   const [cards, setCards] = useState([]); //пустой массив зависимостей
 
-  const [isRenderLoading, setIsRenderLoading] = useState(false);
+  //Переменная состояния загрузки страницы
+  const [isPageLoading, setIsPageLoading] = useState(false);
 
   //Переменные состояния зарегистрированного пользователя
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [registerSuccess, setRegisterSuccess] = useState(false);
+  //Переменные состояния успешной регистрации
+  const [isSuccessfulRegistration, setIsSuccessfulRegistration] =
+    useState(false);
 
   //Переменная состояния для попапа формы регистрации
   const [infoSuccessOpen, setInfoSuccessOpen] = useState(false);
 
-  // Переменные хедера
+  // Переменные, отображаемые в хедере
   const [headerUserEmail, setHeaderUserEmail] = useState("");
-  
+
   //хук хранит состояние и может использоваться для хранения местоположения текущей или предыдущей страницы
   const navigate = useNavigate();
 
@@ -104,7 +107,6 @@ function App() {
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -120,7 +122,7 @@ function App() {
 
   //Функция удаления своих карточек
   function handleCardDelete(card) {
-    setIsRenderLoading(true);
+    setIsPageLoading(true);
     api
       .deleteCard(card._id)
       .then(() => {
@@ -130,7 +132,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка ${err}`);
       })
-      .finally(() => setIsRenderLoading(false));
+      .finally(() => setIsPageLoading(false));
   }
 
   useEffect(() => {
@@ -155,7 +157,7 @@ function App() {
 
   //Функция обновления данных пользователя
   function handleUpdateUser(data) {
-    setIsRenderLoading(true);
+    setIsPageLoading(true);
     api
       .updateUserInfo(data)
       .then((newData) => {
@@ -165,12 +167,12 @@ function App() {
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       })
-      .finally(() => setIsRenderLoading(false));
+      .finally(() => setIsPageLoading(false));
   }
 
   //Функция обновления аватара пользователя
   function handleUpdateAvatar(data) {
-    setIsRenderLoading(true);
+    setIsPageLoading(true);
     api
       .updateUserAvatar(data)
       .then((newAvatar) => {
@@ -180,12 +182,12 @@ function App() {
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       })
-      .finally(() => setIsRenderLoading(false));
+      .finally(() => setIsPageLoading(false));
   }
 
   //Функция добавления новый карточек
   function handleAddPlaceSubmit(data) {
-    setIsRenderLoading(true);
+    setIsPageLoading(true);
     api
       .addNewCard(data)
       .then((newCard) => {
@@ -195,7 +197,7 @@ function App() {
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       })
-      .finally(() => setIsRenderLoading(false));
+      .finally(() => setIsPageLoading(false));
   }
 
   // Функция регистрация пользователи
@@ -203,13 +205,13 @@ function App() {
     return auth
       .registerUser(data)
       .then((data) => {
-        setRegisterSuccess(true);
+        setIsSuccessfulRegistration(true);
         handleInfoTooltip();
         navigate("/sign-in");
       })
       .catch((err) => {
         console.log(err);
-        setRegisterSuccess(false);
+        setIsSuccessfulRegistration(false);
         handleInfoTooltip();
       });
   }
@@ -279,7 +281,7 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  // выход пользователя
+  // Функция, отвечающая за выход пользователя
   function handleSingOut() {
     setIsLoggedIn(false);
     localStorage.removeItem("jwt");
@@ -328,27 +330,27 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
-            isRenderLoading={isRenderLoading}
+            isPageLoading={isPageLoading}
           />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
-            isRenderLoading={isRenderLoading}
+            isPageLoading={isPageLoading}
           />
 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleAddPlaceSubmit}
-            isRenderLoading={isRenderLoading}
+            isPageLoading={isPageLoading}
           />
           <InfoTooltip
             isOpen={infoSuccessOpen}
             onClose={closeAllPopups}
+            success={isSuccessfulRegistration}
             name="success"
-            success={registerSuccess}
           />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <PopupWithForm name="addCardPopup" title="Вы уверены?" text="Да" />

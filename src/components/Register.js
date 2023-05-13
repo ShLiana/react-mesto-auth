@@ -7,16 +7,16 @@ const Register = ({ onRegister }) => {
     password: "",
   });
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setRegistrationValues({
       ...registrationValues,
       [name]: value,
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     onRegister(registrationValues);
   };
 
@@ -35,7 +35,7 @@ const Register = ({ onRegister }) => {
           type="email"
           name="email"
           placeholder="Email"
-          autoComplete="email"
+          autoComplete="Email"
           minLength="2"
           maxLength="40"
           className="authorization__input"
@@ -48,7 +48,7 @@ const Register = ({ onRegister }) => {
           required
           type="password"
           name="password"
-          placeholder="Пароль"
+          placeholder="password"
           autoComplete="password"
           minLength="6"
           maxLength="20"

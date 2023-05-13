@@ -4,7 +4,8 @@ import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 const Header = ({ isLoggedIn, headerUserEmail, onSignOut }) => {
   const location = useLocation();
-  const headerLinkName = location.pathname === "/sign-in" ? "Регистрация" : "Войти";
+  const headerLinkName =
+    location.pathname === "/sign-in" ? "Регистрация" : "Войти";
   const buttonText = isLoggedIn ? "Выйти" : headerLinkName;
 
   return (
@@ -32,14 +33,10 @@ const Header = ({ isLoggedIn, headerUserEmail, onSignOut }) => {
         {isLoggedIn && (
           <nav className="header__nav">
             <p className="header__email">{headerUserEmail}</p>
-            <button
-              className="header__link-btn header__link-button_type_authorized"
-              onClick={() => onSignOut()}
-            >
+            <button className="header__link-btn" onClick={() => onSignOut()}>
               {buttonText}
             </button>
           </nav>
-          
         )}
       </div>
     </header>

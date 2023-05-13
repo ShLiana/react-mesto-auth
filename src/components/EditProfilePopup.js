@@ -2,10 +2,7 @@ import React from "react";
 import PopupWithForm from "../components/PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-const EditProfilePopup = ({  isOpen,
-  onClose,
-  onUpdateUser,
-  isRenderLoading, }) => {
+const EditProfilePopup = ({ isOpen, onClose, onUpdateUser, isPageLoading }) => {
   const [name, setName] = React.useState("currentUser.name");
   const [description, setDescription] = React.useState("currentUser.about");
   //подписка на контекст
@@ -44,8 +41,8 @@ const EditProfilePopup = ({  isOpen,
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isRenderLoading={isRenderLoading}
-      renderLoadingTextBtn="Сохранение..."
+      isPageLoading={isPageLoading}
+      renderLoadingText="Сохранение..."
     >
       <input
         className="popup__input popup__input_type_name"
@@ -55,7 +52,7 @@ const EditProfilePopup = ({  isOpen,
         placeholder="Имя пользователя"
         minLength="2"
         maxLength="40"
-        value={name || ''}
+        value={name || ""}
         onChange={handleNameChange}
         required
       />
@@ -68,13 +65,13 @@ const EditProfilePopup = ({  isOpen,
         placeholder="Род деятельности"
         minLength="2"
         maxLength="200"
-        value={description || ''}
+        value={description || ""}
         onChange={handleDescriptionChange}
         required
       />
       <span className="user-job-input-error popup__input-error" />
     </PopupWithForm>
   );
-}
+};
 
 export default EditProfilePopup;

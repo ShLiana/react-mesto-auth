@@ -20,7 +20,7 @@ const Login = ({ onLogin }) => {
     });
   }
   return (
-    <div className="auth">
+    <div className="authorization">
       <AuthorizationForm
         name={"login"}
         title={"Вход"}

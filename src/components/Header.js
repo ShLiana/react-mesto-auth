@@ -29,15 +29,23 @@ const Header = ({ isLoggedIn, headerUserEmail, onSignOut }) => {
               </Link>
             }
           ></Route>
+          <Route
+            path="*"
+            element={
+              isLoggedIn && (
+                <nav className="header__nav">
+                  <p className="header__email">{headerUserEmail}</p>
+                  <button
+                    className="header__link-btn"
+                    onClick={() => onSignOut()}
+                  >
+                    {buttonText}
+                  </button>
+                </nav>
+              )
+            }
+          ></Route>
         </Routes>
-        {isLoggedIn && (
-          <nav className="header__nav">
-            <p className="header__email">{headerUserEmail}</p>
-            <button className="header__link-btn" onClick={() => onSignOut()}>
-              {buttonText}
-            </button>
-          </nav>
-        )}
       </div>
     </header>
   );

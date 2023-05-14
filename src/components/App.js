@@ -222,8 +222,9 @@ function App() {
       .loginUser(data)
       .then((data) => {
         setIsLoggedIn(true);
+        setHeaderUserEmail(headerUserEmail);
         localStorage.setItem("jwt", data.token);
-       // CheckToken();
+        CheckToken();
         navigate("/");
       })
       .catch((err) => {
@@ -262,7 +263,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-     // Promise.all([api.getInitialCards(), api.getUserInfo()]);
+      // Promise.all([api.getInitialCards(), api.getUserInfo()]);
       api
         .getUserInfo()
         .then((data) => {

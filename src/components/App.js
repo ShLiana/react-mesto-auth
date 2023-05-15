@@ -217,14 +217,13 @@ function App() {
   }
 
   // Функция авторизация пользователя
-  function handleUserAuthorization(data) {
+  function handleUserAuthorization(userData) {
     return auth
-      .loginUser(data)
+      .loginUser(userData)
       .then((data) => {
         setIsLoggedIn(true);
-        setHeaderUserEmail(headerUserEmail);
+        setHeaderUserEmail(userData.email);
         localStorage.setItem("jwt", data.token);
-        CheckToken();
         navigate("/");
       })
       .catch((err) => {
